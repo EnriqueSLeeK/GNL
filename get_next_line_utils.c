@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:18:29 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/22 12:50:46 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/22 13:36:36 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,8 @@ t_list	*add_nodes(t_list *node, int fd)
 {
 	t_list	*new_node;
 
-	while (node -> flag != 1)
+	while (node -> flag != 1
+			|| (node -> flag == 1 && node -> curr_index > 0))
 	{
 		if (node -> flag == -1)
 			return (0);

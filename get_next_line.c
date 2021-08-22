@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 16:58:01 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/22 12:51:16 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/22 13:19:48 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,7 @@ char	*copy_and_free(char *line, t_list **head)
 		if ((*head) -> len == (*head) -> curr_index)
 			(*head) = free_node((*head));
 		else
-		{
-			(*head) -> flag = 0;
 			break ;
-		}
 	}
 	line[k] = '\0';
 	return (line);

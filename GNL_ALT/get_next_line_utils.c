@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:18:29 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/23 12:29:36 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/23 17:07:19 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ t_list	*read_and_add(t_list *node, int fd)
 	{
 		flag_code[2] = 0;
 		flag_code[1] = read(fd, tmp, BUFFER_SIZE);
-		if (flag_code[1] == -1 || flag_code[1] == 0)
+		if (flag_code[1] == 0)
 		{
 			free(tmp);
 			return (node);

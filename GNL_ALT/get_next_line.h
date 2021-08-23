@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 14:40:30 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/23 11:49:10 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/23 16:29:17 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef struct s_link_lst
 char	*get_next_line(int fd);
 t_list	*create_node(char c, int fd);
 t_list	*read_and_add(t_list *node, int fd);
-char	*copy_and_free(char *line, t_list **head, int fd);
+char	*copy_and_free(char *line, t_list *node, t_list **head, int fd);
 
 //line utils
 int		line_size(t_list *head, int fd);

@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 16:58:01 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/23 12:28:43 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/23 18:09:56 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ char	*get_next_line(int fd)
 	}
 	quant = line_size(head, fd);
 	result = malloc(quant + 1);
-	res = copy_and_free(result, &head, fd);
+	res = copy_and_free(result, head, &head, fd);
 	if (res[0] == '\0')
 	{
 		free(res);
@@ -42,29 +42,37 @@ char	*get_next_line(int fd)
  * Will copy the content of the node and free
  * up the memory
 */
-char	*copy_and_free(char *line, t_list **head, int fd)
+char	*copy_and_free(char *line, t_list *node, t_list **head, int fd)
 {
 	int		k;
 	t_list	*prev;
+	t_list	*true_head;
 
 	k = 0;
 	prev = 0;
-	while ((*head))
+	true_head = 0;
+	while (node)
 	{
-		if ((*head) -> fd == fd)
+		if (node -> fd == fd)
 		{
-			line[k] = (*head) -> buff_c;
+			line[k] = node -> buff_c;
 			k += 1;
-			*head = free_node(prev, *head);
+			node = free_node(prev, node);
 			if (k > 0 && line[k - 1] == '\n')
 				break ;
 		}
-		else if ((*head) -> next != 0)
+		else
 		{
-			prev = (*head);
-			(*head) = (*head) -> next;
+			prev = node;
+			node = node -> next;
+			if (!(true_head) && prev)
+				true_head = prev;
 		}
 	}
+	if (true_head)
+		(*head) = true_head;
+	else
+		(*head) = node;
 	line[k] = '\0';
 	return (line);
 }

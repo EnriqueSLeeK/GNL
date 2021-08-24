@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/13 14:40:30 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/24 00:50:17 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/24 02:35:50 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 
 # include <stdlib.h>
 # include <unistd.h>
-# include <stdio.h>
 
 typedef struct s_link_lst
 {
@@ -26,7 +25,7 @@ typedef struct s_link_lst
 
 char	*get_next_line(int fd);
 t_list	*create_node(char c, int fd);
-t_list	*read_and_add(t_list *node, int fd);
+t_list	*read_and_add(char *tmp, t_list *node, int fd);
 char	*copy_and_free(char *line, t_list *node, t_list **head, int fd);
 
 //line utils

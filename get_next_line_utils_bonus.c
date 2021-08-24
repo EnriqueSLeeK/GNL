@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:18:29 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/24 00:53:21 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/24 02:35:24 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,22 +43,22 @@ t_list	*copy(t_list *node, int fd, char *buff_t, int flag_code[])
  * flag_code [1] = read_code
  * flag_code [2] = index
  */
-t_list	*read_and_add(t_list *node, int fd)
+t_list	*read_and_add(char *tmp, t_list *node, int fd)
 {
-	char	*tmp;
 	int		flag_code[3];
 
-	tmp = malloc(BUFFER_SIZE + 1);
 	if (tmp == 0)
-		 return (0);
+		return (0);
 	flag_code[0] = 1;
 	while (flag_code[0])
 	{
 		flag_code[2] = 0;
 		flag_code[1] = read(fd, tmp, BUFFER_SIZE);
-		if (flag_code[1] == 0)
+		if (flag_code[1] == -1 || flag_code[1] == 0)
 		{
 			free(tmp);
+			if (flag_code[1] == -1)
+				return (free_all(node, fd));
 			return (node);
 		}
 		if (node == 0)

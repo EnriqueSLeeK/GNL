@@ -6,7 +6,7 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 16:58:01 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/24 00:51:22 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/24 02:34:50 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,9 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (0);
-	head = read_and_add(head, fd);
-	if (!(head))
-	{
-		free_all(head, fd);
+	head = read_and_add(malloc(BUFFER_SIZE + 1), head, fd);
+	if (head == 0 )
 		return (0);
-	}
 	quant = line_size(head, fd);
 	result = malloc(quant + 1);
 	res = copy_and_free(result, head, &head, fd);
@@ -93,8 +90,10 @@ char	*copy_and_free(char *line, t_list *node, t_list **head, int fd)
 t_list	*free_all(t_list *node, int fd)
 {
 	t_list	*prev;
+	t_list	*head;
 
 	prev = 0;
+	head = 0;
 	while (node)
 	{
 		if (node -> fd == fd)
@@ -103,7 +102,12 @@ t_list	*free_all(t_list *node, int fd)
 		{
 			prev = node;
 			node = node -> next;
+			if (head == 0)
+				head = prev;
 		}
 	}
-	return (0);
+	if (head != 0)
+		return (head);
+	else
+		return (0);
 }

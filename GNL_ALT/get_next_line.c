@@ -6,12 +6,11 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/11 16:58:01 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/23 18:09:56 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/24 00:51:22 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
 
 char	*get_next_line(int fd)
 {
@@ -22,7 +21,8 @@ char	*get_next_line(int fd)
 
 	if (BUFFER_SIZE < 1 || fd < 0)
 		return (0);
-	if (!(head = read_and_add(head, fd)))
+	head = read_and_add(head, fd);
+	if (!(head))
 	{
 		free_all(head, fd);
 		return (0);
@@ -38,10 +38,29 @@ char	*get_next_line(int fd)
 	return (res);
 }
 
+int	get_and_free(t_list **node, t_list *prev, char *line, int *k)
+{
+	line[*k] = (*node)-> buff_c;
+	*k += 1;
+	*node = free_node(prev, *node);
+	if (*k > 0 && line[*k - 1] == '\n')
+		return (1);
+	return (0);
+}
+
+void	adjust_pointer(t_list **prev, t_list **node, t_list **true_head)
+{
+	*prev = *node;
+	*node = (*node)-> next;
+	if (!(*true_head) && *prev)
+		*true_head = *prev;
+}
+
 /*
  * Will copy the content of the node and free
  * up the memory
 */
+
 char	*copy_and_free(char *line, t_list *node, t_list **head, int fd)
 {
 	int		k;
@@ -55,18 +74,12 @@ char	*copy_and_free(char *line, t_list *node, t_list **head, int fd)
 	{
 		if (node -> fd == fd)
 		{
-			line[k] = node -> buff_c;
-			k += 1;
-			node = free_node(prev, node);
-			if (k > 0 && line[k - 1] == '\n')
+			if (get_and_free(&node, prev, line, &k))
 				break ;
 		}
 		else
 		{
-			prev = node;
-			node = node -> next;
-			if (!(true_head) && prev)
-				true_head = prev;
+			adjust_pointer(&prev, &node, &true_head);
 		}
 	}
 	if (true_head)
@@ -93,20 +106,4 @@ t_list	*free_all(t_list *node, int fd)
 		}
 	}
 	return (0);
-}
-
-int	line_size(t_list *head, int fd)
-{
-	int	i;
-
-	i = 0;
-	while (head)
-	{
-		if (head -> fd == fd)
-			i += 1;
-		if (head -> buff_c == '\n')
-			break ;
-		head = head -> next;
-	}
-	return (i);
 }

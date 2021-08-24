@@ -6,25 +6,21 @@
 /*   By: ensebast <ensebast@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/08/15 17:18:29 by ensebast          #+#    #+#             */
-/*   Updated: 2021/08/23 17:07:19 by ensebast         ###   ########.br       */
+/*   Updated: 2021/08/24 00:53:21 by ensebast         ###   ########.br       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-t_list	*find_last(t_list *node)
-{
-	while (node -> next)
-		node = node -> next;
-	return (node);
-}
 t_list	*copy(t_list *node, int fd, char *buff_t, int flag_code[])
 {
 	t_list	*root;
 	t_list	*tmp;
 
 	root = node;
-	while (buff_t[flag_code[2]] && flag_code[2] < flag_code[1])
+	while (node -> next)
+		node = node -> next;
+	while (flag_code[2] < flag_code[1])
 	{
 		flag_code[2] += 1;
 		tmp = create_node(buff_t[flag_code[2] - 1], fd);
@@ -33,8 +29,10 @@ t_list	*copy(t_list *node, int fd, char *buff_t, int flag_code[])
 			free_all(node, fd);
 			return (0);
 		}
-		node = find_last(node);
 		node -> next = tmp;
+		node = node -> next;
+		if (node -> buff_c == '\n')
+			flag_code[0] = 0;
 	}
 	node = root;
 	return (root);
@@ -78,7 +76,8 @@ t_list	*create_node(char c, int fd)
 {
 	t_list		*node;
 
-	if ((node = malloc(sizeof(t_list))) == 0)
+	node = malloc(sizeof(t_list));
+	if (node == 0)
 		return (0);
 	node -> buff_c = c;
 	node -> next = 0;
@@ -110,4 +109,20 @@ t_list	*free_node(t_list *prev, t_list *node)
 		return (prev -> next);
 	}
 	return (0);
+}
+
+int	line_size(t_list *head, int fd)
+{
+	int	i;
+
+	i = 0;
+	while (head)
+	{
+		if (head -> fd == fd)
+			i += 1;
+		if (head -> buff_c == '\n')
+			break ;
+		head = head -> next;
+	}
+	return (i);
 }

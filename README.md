@@ -1,4 +1,4 @@
-# GNL
+# Get Next Line
 
 Second project from the 42 school
 

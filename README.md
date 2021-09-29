@@ -2,4 +2,12 @@
 
 Second project from the 42 school
 
-Objective: Get a line in a file with the specific file descriptor
+This project aims to create a function with similar behaviour to the getline() from C library function
+
+## Objectives:
+- Unix logic
+
+## Skills:
+- Unix
+- Rigor
+- Algorithms & AI

@@ -2,7 +2,7 @@
 
 Second project from the 42 school
 
-This project aims to create a function with similar _behaviour_ to the getline() from C library function
+This project aims to create a function that takes a line terminated with a newline (\n) from a fd
 
 ## Objectives:
 - Unix logic

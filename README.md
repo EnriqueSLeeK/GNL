@@ -1,4 +1,4 @@
-# Get Next Line
+# Get Next Line &middot; [![.github/workflows/norminette.yml](https://github.com/EnriqueSLeeK/GNL/actions/workflows/norminette.yml/badge.svg)](https://github.com/EnriqueSLeeK/GNL/actions/workflows/norminette.yml)
 
 Second project from the 42 school
 

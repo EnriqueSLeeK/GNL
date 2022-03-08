@@ -1,4 +1,4 @@
-# Get Next Line l
+# Get Next Line
 
 Second project from the 42 school
 
